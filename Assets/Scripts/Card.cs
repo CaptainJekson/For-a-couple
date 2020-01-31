@@ -12,6 +12,8 @@ public class Card : MonoBehaviour
     [SerializeField] private float _timeShowing;
 
     private Image _image;
+    private Button _button;
+
     private TextMeshProUGUI _numberCard;
     private float _showingCooldown;
 
@@ -20,6 +22,7 @@ public class Card : MonoBehaviour
     private void Awake()
     {
         _image = GetComponent<Image>();
+        _button = GetComponent<Button>();
         _numberCard = GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -53,6 +56,18 @@ public class Card : MonoBehaviour
     public void SetNumberCard(int number)
     {
         _numberCard.text = number.ToString();
+    }
+
+    public void RemoveCard()
+    {
+        Destroy(gameObject);
+    }
+
+    public void OnEnableComponets()
+    {
+        this.enabled = true;
+        _image.enabled = true;
+        _button.enabled = true;
     }
 }
 
