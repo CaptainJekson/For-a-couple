@@ -4,51 +4,77 @@ using UnityEngine;
 
 public class CardList : MonoBehaviour
 {
-    [SerializeField] Card _card;
-    [SerializeField] int _startingCountCards;
+    [SerializeField] private Card _card;
+    [SerializeField] private int _startingCountCards;
 
     private List<Card> _cards;
 
     private void Awake()
     {
-        if (EvenCheckNumvers(_startingCountCards) == false)
-            _startingCountCards++;
-
         _cards = new List<Card>();
-
-        СardInitialization();
-        AddCouple();
+        AddCardList();
+        AddCardTheTable();
+        AddCoupleNumbers();
+        ClearTheTable();
         _cards = Shuffle(_cards);
-
-        foreach (var item in _cards)
-        {
-            AddCardTheTable(item);
-        }
+        AddCardTheTable();
     }
 
-    private void СardInitialization()
+    public void AddCouple()
+    {
+        _startingCountCards += 2;
+        ClearTheTable();
+
+        for (int i = 0; i < 2; i++)
+        {
+            _cards.Add(_card);
+        }
+        AddCardTheTable();
+
+        _cards[_cards.Count - 2].SetNumberCard(_startingCountCards / 2);
+        _cards[_cards.Count - 1].SetNumberCard(_startingCountCards / 2);
+
+        ClearTheTable();
+        _cards = Shuffle(_cards);
+        AddCardTheTable();
+    }
+
+    private void AddCardList()
     {
         for (int i = 0; i < _startingCountCards; i++)
         {
-            Card newCard = AddCardTheTable(_card);
-            _cards.Add(newCard);
-            newCard.RemoveCard();
-            newCard.OnEnableComponets();
+            _cards.Add(_card);
         }
     }
 
-    private void AddCouple()
+    private void AddCardTheTable()
     {
+        for (int i = 0; i < _cards.Count; i++)
+        {
+            Card newCard = Instantiate(_cards[i], transform.position, Quaternion.identity);
+            newCard.transform.SetParent(transform, false);
+            _cards[i] = newCard;
+            _cards[i].OnEnableComponets();
+        }
+    }
+
+    private void ClearTheTable()
+    {
+        for (int i = 0; i < _cards.Count; i++)
+        {
+            _cards[i].RemoveCard();
+        }
+    }
+
+    private void AddCoupleNumbers()
+    {
+        Debug.Log(_cards.Count);
+
         for (int i = 0; i < _cards.Count / 2; i++)
         {
             _cards[i].SetNumberCard(i + 1);
             _cards[_cards.Count / 2 + i].SetNumberCard(i + 1);
         }
-    }
-
-    private bool EvenCheckNumvers(int numbers)
-    {
-        return numbers % 2 == 0;
     }
 
     private List<Card> Shuffle(List<Card> cards)
@@ -62,17 +88,5 @@ public class CardList : MonoBehaviour
         }
 
         return cards;
-    }
-
-    private Card AddCardTheTable(Card card)
-    {
-        Card newCard = Instantiate(card, transform.position, Quaternion.identity);
-        newCard.transform.SetParent(transform, false);
-
-        return newCard;
-    }
-
-    private void AddСouple()
-    {
     }
 }

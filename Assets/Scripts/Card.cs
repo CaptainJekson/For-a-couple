@@ -39,20 +39,6 @@ public class Card : MonoBehaviour
         ShowCard();
     }
 
-    private void ShowCard()
-    {
-        _image.sprite = _faceCard;
-        _numberCard.enabled = true;
-
-        _showingCooldown = _timeShowing;
-    }
-
-    private void HideCard()
-    {
-        _image.sprite = _shirtСard;
-        _numberCard.enabled = false;
-    }
-
     public void SetNumberCard(int number)
     {
         _numberCard.text = number.ToString();
@@ -68,6 +54,20 @@ public class Card : MonoBehaviour
         this.enabled = true;
         _image.enabled = true;
         _button.enabled = true;
+    }
+
+    private void ShowCard()
+    {
+        _image.sprite = _faceCard;
+        _numberCard.enabled = true;
+
+        _showingCooldown = _timeShowing;
+    }
+
+    private void HideCard()
+    {
+        _image.sprite = _shirtСard;
+        _numberCard.enabled = false;
     }
 }
 
