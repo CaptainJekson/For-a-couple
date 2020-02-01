@@ -1,19 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CardComparator : MonoBehaviour
 {
     private List<Card> _coupleCards;
     private CardList _cardList;
 
+    private GameState gameState;
+
     public bool IsCoupleCard => _coupleCards.Count >= 2;
     public int QuantityGuessedCouples { get; set; }
+
+    public event UnityAction СardsMatched;
+    public event UnityAction СardsNotMatched;
 
     private void Awake()
     {
         _coupleCards = new List<Card>();
         _cardList = GetComponent<CardList>();
+
+        gameState = FindObjectOfType<GameState>();
     }
 
     public void AddCardToCompare(Card card)
@@ -31,8 +39,11 @@ public class CardComparator : MonoBehaviour
             _coupleCards[0].IsGuessed = true;
             _coupleCards[1].IsGuessed = true;
             QuantityGuessedCouples++;
+            СardsMatched?.Invoke();
         }
-
-        Debug.Log($"{QuantityGuessedCouples}/{_cardList.QuantityCouples}");
+        else
+        {
+            СardsNotMatched?.Invoke();
+        }
     }
 }
