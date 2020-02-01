@@ -9,31 +9,15 @@ public class CardList : MonoBehaviour
 
     private List<Card> _cards;
 
+    public int QuantityCouples => _cards.Count / 2;
+
     private void Awake()
     {
         _cards = new List<Card>();
+
         AddCardList();
         AddCardTheTable();
         AddCoupleNumbers();
-        ClearTheTable();
-        _cards = Shuffle(_cards);
-        AddCardTheTable();
-    }
-
-    public void AddCouple()
-    {
-        _startingCountCards += 2;
-        ClearTheTable();
-
-        for (int i = 0; i < 2; i++)
-        {
-            _cards.Add(_card);
-        }
-        AddCardTheTable();
-
-        _cards[_cards.Count - 2].SetNumberCard(_startingCountCards / 2);
-        _cards[_cards.Count - 1].SetNumberCard(_startingCountCards / 2);
-
         ClearTheTable();
         _cards = Shuffle(_cards);
         AddCardTheTable();
@@ -68,12 +52,10 @@ public class CardList : MonoBehaviour
 
     private void AddCoupleNumbers()
     {
-        Debug.Log(_cards.Count);
-
         for (int i = 0; i < _cards.Count / 2; i++)
         {
-            _cards[i].SetNumberCard(i + 1);
-            _cards[_cards.Count / 2 + i].SetNumberCard(i + 1);
+            _cards[i].NumberCard = i + 1;
+            _cards[_cards.Count / 2 + i].NumberCard = i + 1;
         }
     }
 
@@ -88,5 +70,22 @@ public class CardList : MonoBehaviour
         }
 
         return cards;
+    }
+
+    public void AddCoupleCards()
+    {
+        ClearTheTable();
+
+        _cards.Add(_card);
+        _cards.Add(_card);
+
+        AddCardTheTable(); 
+
+        _cards[_cards.Count - 2].NumberCard = _cards.Count / 2;
+        _cards[_cards.Count - 1].NumberCard = _cards.Count / 2;
+
+        ClearTheTable();
+        _cards = Shuffle(_cards);
+        AddCardTheTable();
     }
 }

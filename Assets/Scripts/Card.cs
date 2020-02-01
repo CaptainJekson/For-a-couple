@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity;
@@ -16,27 +17,35 @@ public class Card : MonoBehaviour
 
     private TextMeshProUGUI _numberCard;
     private float _showingCooldown;
+    private CardComparator _cardComparator;
 
     public bool IsGuessed { private get; set; }
+    public int NumberCard { get => Convert.ToInt32(_numberCard.text); set => _numberCard.text = value.ToString(); }
 
     private void Awake()
     {
         _image = GetComponent<Image>();
         _button = GetComponent<Button>();
         _numberCard = GetComponentInChildren<TextMeshProUGUI>();
+        _cardComparator = FindObjectOfType<CardComparator>();
     }
 
     private void Update()
     {
         if (_showingCooldown > 0)
             _showingCooldown -= Time.deltaTime;
-        else if(IsGuessed == false)
+        else if (IsGuessed == false && _cardComparator.IsCoupleCard == true)
             HideCard();
     }
 
     public void OnCardClick()
     {
         ShowCard();
+
+        _cardComparator.AddCardToCompare(this);
+
+        if (_cardComparator.IsCoupleCard)
+            _cardComparator.ToCompare();
     }
 
     public void SetNumberCard(int number)
@@ -60,6 +69,7 @@ public class Card : MonoBehaviour
     {
         _image.sprite = _faceCard;
         _numberCard.enabled = true;
+        _button.enabled = false;
 
         _showingCooldown = _timeShowing;
     }
@@ -68,6 +78,7 @@ public class Card : MonoBehaviour
     {
         _image.sprite = _shirtСard;
         _numberCard.enabled = false;
+        _button.enabled = true;
     }
 }
 
