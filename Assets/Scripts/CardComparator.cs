@@ -1,27 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CardComparator : MonoBehaviour
 {
-    private List<Card> _coupleCards;
-    private CardList _cardList;
+    public const int _first = 0;
+    public const int _second = 1;
 
-    private GameState gameState;
+    private List<Card> _coupleCards;
 
     public bool IsCoupleCard => _coupleCards.Count >= 2;
     public int QuantityGuessedCouples { get; set; }
 
-    public event UnityAction СardsMatched;
-    public event UnityAction СardsNotMatched;
+    private UnityAction _cardsMatched;
+    public event UnityAction СardsMatched
+    {
+        add => _cardsMatched += value;
+        remove => _cardsMatched -= value;
+    }
+
+    private UnityAction _cardsNotMatched;
+    public event UnityAction СardsNotMatched
+    {
+        add => _cardsNotMatched += value;
+        remove => _cardsNotMatched -= value;
+    }
 
     private void Awake()
     {
         _coupleCards = new List<Card>();
-        _cardList = GetComponent<CardList>();
-
-        gameState = FindObjectOfType<GameState>();
     }
 
     public void AddCardToCompare(Card card)
@@ -34,16 +41,16 @@ public class CardComparator : MonoBehaviour
 
     public void ToCompare()
     {
-        if (_coupleCards[0].NumberCard == _coupleCards[1].NumberCard)
+        if (_coupleCards[_first].NumberCard == _coupleCards[_second].NumberCard)
         {
-            _coupleCards[0].IsGuessed = true;
-            _coupleCards[1].IsGuessed = true;
+            _coupleCards[_first].IsGuessed = true;
+            _coupleCards[_second].IsGuessed = true;
             QuantityGuessedCouples++;
-            СardsMatched?.Invoke();
+            _cardsMatched?.Invoke();
         }
         else
         {
-            СardsNotMatched?.Invoke();
+            _cardsNotMatched?.Invoke();
         }
     }
 }

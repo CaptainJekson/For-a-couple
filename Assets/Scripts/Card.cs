@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Unity;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
-public class Card : MonoBehaviour
+public class Card : MonoBehaviour       
 {
     [SerializeField] private Sprite _shirtСard;
     [SerializeField] private Sprite _faceCard;
@@ -21,6 +19,8 @@ public class Card : MonoBehaviour
 
     public bool IsGuessed { private get; set; }
     public int NumberCard { get => Convert.ToInt32(_numberCard.text); set => _numberCard.text = value.ToString(); }
+
+    public event UnityAction СardSelected;
 
     private void Awake()
     {
@@ -48,17 +48,12 @@ public class Card : MonoBehaviour
             _cardComparator.ToCompare();
     }
 
-    public void SetNumberCard(int number)
-    {
-        _numberCard.text = number.ToString();
-    }
-
     public void RemoveCard()
     {
         Destroy(gameObject);
     }
 
-    public void OnEnableComponets()
+    public void Init()
     {
         this.enabled = true;
         _image.enabled = true;

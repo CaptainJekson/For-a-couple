@@ -1,13 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
     [SerializeField] private int _startAttempts;
     [SerializeField] private CardComparator _cardComparator;
-    [SerializeField] private CardList _cardList;
+    [SerializeField] private CardsTable _cardList;
     [SerializeField] private GameObject _gameOverPanel;
+
+    [SerializeField] private NubmerBar _pointsBar;
+    [SerializeField] private NubmerBar _attemptsBar;
+    [SerializeField] private NubmerBar _levelBar;
 
     public int Level { get; private set; }
     public int Points { get; private set; }
@@ -17,6 +19,7 @@ public class GameState : MonoBehaviour
     {
         Attempts = _startAttempts;
         Level = 1;
+        InitTextBar();
     }
 
     private void OnEnable()
@@ -35,15 +38,20 @@ public class GameState : MonoBehaviour
     {
         if (_cardComparator.QuantityGuessedCouples == _cardList.QuantityCouples)
         {
-            LevelUp();
+            LevelUp();           
         }
-        ////////////////////////////////////////////////////////////////////////
-        Debug.Log($"Level: {Level} Attempt: {Attempts} Points: {Points}");
+    }
+
+    private void InitTextBar()
+    {
+        _levelBar.Number = Level;
+        _attemptsBar.Number = Attempts;
+        _pointsBar.Number = Points;
     }
 
     private void AttemptToSpend()
     {
-        Attempts--;
+        _attemptsBar.Number = --Attempts;
 
         if (Attempts <= 0)
             GameOver();
@@ -51,19 +59,24 @@ public class GameState : MonoBehaviour
 
     private void AddPoint()
     {
-        Points++;
+        _pointsBar.Number = ++Points;
     }
 
     private void LevelUp()
     {
         _cardComparator.QuantityGuessedCouples = 0;
         _cardList.AddCoupleCards();
-        Level++;
+        _levelBar.Number = ++Level;
 
         if (Level >= 10)
-            Attempts = ++_startAttempts;
+        {
+            Attempts = _startAttempts++;
+        }
         else
+        {
             Attempts = _startAttempts;
+        }
+        _attemptsBar.Number = Attempts;
     }
 
     private void GameOver()

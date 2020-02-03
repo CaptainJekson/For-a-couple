@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CardList : MonoBehaviour
+public class CardsTable : MonoBehaviour
 {
     [SerializeField] private Card _card;
     [SerializeField] private int _startingCountCards;
@@ -38,7 +37,7 @@ public class CardList : MonoBehaviour
             Card newCard = Instantiate(_cards[i], transform.position, Quaternion.identity);
             newCard.transform.SetParent(transform, false);
             _cards[i] = newCard;
-            _cards[i].OnEnableComponets();
+            _cards[i].Init();
         }
     }
 
@@ -81,8 +80,8 @@ public class CardList : MonoBehaviour
 
         AddCardTheTable(); 
 
-        _cards[_cards.Count - 2].NumberCard = _cards.Count / 2;
-        _cards[_cards.Count - 1].NumberCard = _cards.Count / 2;
+        _cards[_cards.Count - 2].NumberCard = QuantityCouples;
+        _cards[_cards.Count - 1].NumberCard = QuantityCouples;
 
         ClearTheTable();
         _cards = Shuffle(_cards);
