@@ -9,6 +9,8 @@ public class CardsTable : MonoBehaviour
     private List<Card> _cards;
 
     public int QuantityCouples => _cards.Count / 2;
+    private int PenultimateCard => _cards.Count - 2;
+    private int LastCard => _cards.Count - 1;
 
     private void Awake()
     {
@@ -17,6 +19,23 @@ public class CardsTable : MonoBehaviour
         AddCardList();
         AddCardTheTable();
         AddCoupleNumbers();
+        ClearTheTable();
+        _cards = Shuffle(_cards);
+        AddCardTheTable();
+    }
+
+    public void AddCoupleCards()
+    {
+        ClearTheTable();
+
+        _cards.Add(_card);
+        _cards.Add(_card);
+
+        AddCardTheTable();
+
+        _cards[PenultimateCard].NumberCard = QuantityCouples;
+        _cards[LastCard].NumberCard = QuantityCouples;
+
         ClearTheTable();
         _cards = Shuffle(_cards);
         AddCardTheTable();
@@ -69,22 +88,5 @@ public class CardsTable : MonoBehaviour
         }
 
         return cards;
-    }
-
-    public void AddCoupleCards()
-    {
-        ClearTheTable();
-
-        _cards.Add(_card);
-        _cards.Add(_card);
-
-        AddCardTheTable(); 
-
-        _cards[_cards.Count - 2].NumberCard = QuantityCouples;
-        _cards[_cards.Count - 1].NumberCard = QuantityCouples;
-
-        ClearTheTable();
-        _cards = Shuffle(_cards);
-        AddCardTheTable();
     }
 }

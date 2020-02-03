@@ -19,7 +19,7 @@ public class GameState : MonoBehaviour
     {
         Attempts = _startAttempts;
         Level = 1;
-        InitTextBar();
+        InitStartGAme();
     }
 
     private void OnEnable()
@@ -38,11 +38,11 @@ public class GameState : MonoBehaviour
     {
         if (_cardComparator.QuantityGuessedCouples == _cardList.QuantityCouples)
         {
-            LevelUp();           
+            ToLevelUp();           
         }
     }
 
-    private void InitTextBar()
+    private void InitStartGAme()
     {
         _levelBar.Number = Level;
         _attemptsBar.Number = Attempts;
@@ -54,7 +54,7 @@ public class GameState : MonoBehaviour
         _attemptsBar.Number = --Attempts;
 
         if (Attempts <= 0)
-            GameOver();
+            CompleteTheGame();
     }
 
     private void AddPoint()
@@ -62,7 +62,7 @@ public class GameState : MonoBehaviour
         _pointsBar.Number = ++Points;
     }
 
-    private void LevelUp()
+    private void ToLevelUp()
     {
         _cardComparator.QuantityGuessedCouples = 0;
         _cardList.AddCoupleCards();
@@ -79,7 +79,7 @@ public class GameState : MonoBehaviour
         _attemptsBar.Number = Attempts;
     }
 
-    private void GameOver()
+    private void CompleteTheGame()
     {
         _gameOverPanel.SetActive(true);
     }
