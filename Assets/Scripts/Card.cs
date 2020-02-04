@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
 
-public class Card : MonoBehaviour       
+public class Card : MonoBehaviour
 {
     [SerializeField] private Sprite _shirtСard;
     [SerializeField] private Sprite _faceCard;

@@ -4,7 +4,8 @@ public class GameState : MonoBehaviour
 {
     [SerializeField] private int _startAttempts;
     [SerializeField] private CardComparator _cardComparator;
-    [SerializeField] private CardsTable _cardList;
+    [SerializeField] private CardsTable _cardsTable;
+    [SerializeField] private Victory _vicloty;
     [SerializeField] private GameObject _gameOverPanel;
 
     [SerializeField] private NubmerBar _pointsBar;
@@ -24,21 +25,23 @@ public class GameState : MonoBehaviour
 
     private void OnEnable()
     {
-        _cardComparator.СardsNotMatched += AttemptToSpend;
-        _cardComparator.СardsMatched += AddPoint;
+        _cardComparator.СardsNotMatched += OnAttemptToSpend;
+        _cardComparator.СardsMatched += OnAddPoint;
+        _vicloty.LevelUp += OnLevelUp;
     }
 
     private void OnDisable()
     {
-        _cardComparator.СardsNotMatched -= AttemptToSpend;
-        _cardComparator.СardsMatched -= AddPoint;
+        _cardComparator.СardsNotMatched -= OnAttemptToSpend;
+        _cardComparator.СardsMatched -= OnAddPoint;
+        _vicloty.LevelUp -= OnLevelUp;
     }
 
     private void Update()
     {
-        if (_cardComparator.QuantityGuessedCouples == _cardList.QuantityCouples)
+        if (_cardComparator.QuantityGuessedCouples == _cardsTable.QuantityCouples)
         {
-            ToLevelUp();           
+            _vicloty.gameObject.SetActive(true);
         }
     }
 
@@ -49,7 +52,7 @@ public class GameState : MonoBehaviour
         _pointsBar.Number = Points;
     }
 
-    private void AttemptToSpend()
+    private void OnAttemptToSpend()
     {
         _attemptsBar.Number = --Attempts;
 
@@ -57,15 +60,15 @@ public class GameState : MonoBehaviour
             CompleteTheGame();
     }
 
-    private void AddPoint()
+    private void OnAddPoint()
     {
         _pointsBar.Number = ++Points;
     }
 
-    private void ToLevelUp()
+    private void OnLevelUp()
     {
         _cardComparator.QuantityGuessedCouples = 0;
-        _cardList.AddCoupleCards();
+        _cardsTable.AddCoupleCards();
         _levelBar.Number = ++Level;
 
         if (Level >= 10)

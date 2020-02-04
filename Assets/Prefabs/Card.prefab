@@ -72,8 +72,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4289582839
+  m_fontColor: {r: 0.96862745, g: 0.8392157, b: 0.6784314, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 26dc95dd474d26c47b7482061d89559a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 783685cc7fdb3314fa0f000cce7c4693, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -297,6 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113d5d0e73bb08645b816b28dd963b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "_shirt\u0421ard": {fileID: 21300000, guid: 26dc95dd474d26c47b7482061d89559a, type: 3}
-  _faceCard: {fileID: 21300000, guid: 54cf7dce50309bb4db49f54d852ef9f5, type: 3}
+  "_shirt\u0421ard": {fileID: 21300000, guid: 783685cc7fdb3314fa0f000cce7c4693, type: 3}
+  _faceCard: {fileID: 21300000, guid: 21aad6760aaa1894997a57181330c879, type: 3}
   _timeShowing: 0.7

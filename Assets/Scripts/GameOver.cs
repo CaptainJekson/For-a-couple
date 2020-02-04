@@ -56,6 +56,6 @@ public class GameOver : MonoBehaviour
 
     private void ShowPrize()
     {
-        _prizeText.text = (_gameState.Level * _gameState.Points * 15).ToString();
+        _prizeText.text = (_gameState.Level * _gameState.Points * 15).ToString() + " $";
     }
 }
