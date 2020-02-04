@@ -12,15 +12,12 @@ public class Card : MonoBehaviour
 
     private Image _image;
     private Button _button;
-
     private TextMeshProUGUI _numberCard;
     private float _showingCooldown;
     private CardComparator _cardComparator;
 
     public bool IsGuessed { private get; set; }
     public int NumberCard { get => Convert.ToInt32(_numberCard.text); set => _numberCard.text = value.ToString(); }
-
-    public event UnityAction СardSelected;
 
     private void Awake()
     {

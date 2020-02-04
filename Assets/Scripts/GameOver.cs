@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
@@ -36,12 +37,21 @@ public class GameOver : MonoBehaviour
 
     public void OnContinueGameButtonClick()
     {
-        gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void ShowСlock()
     {
-        _clockText.text = _sessionCooldown.ToString();
+        int minutes = (int)_sessionCooldown / 60;
+        int seconds = (int)_sessionCooldown - minutes * 60;
+
+        if (seconds.ToString().Length > 1)
+            _clockText.text = $"{minutes} : {seconds}";
+        else
+            _clockText.text = $"{minutes} : 0{seconds}";
+
+        if (minutes == 0 && seconds == 0)
+            _clockText.text = "Продолжить";
     }
 
     private void ShowPrize()
