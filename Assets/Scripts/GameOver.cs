@@ -18,6 +18,7 @@ public class GameOver : MonoBehaviour
         ShowPrize();
 
         _sessionCooldown = _timeBetweenSessions;
+        _сontinueGameButton.enabled = false;
     }
 
     private void Update()
@@ -28,11 +29,6 @@ public class GameOver : MonoBehaviour
             _сontinueGameButton.enabled = true;
 
         ShowСlock();
-    }
-
-    private void OnDisable()
-    {
-        _сontinueGameButton.enabled = false;
     }
 
     public void OnContinueGameButtonClick()
