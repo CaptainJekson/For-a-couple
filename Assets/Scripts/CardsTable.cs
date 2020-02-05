@@ -1,66 +1,52 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CardComparer))]
 public class CardsTable : MonoBehaviour
 {
-    [SerializeField] private Card _card;
-    [SerializeField] private int _startingCountCards;
+    [SerializeField] private Card _template;
+    [SerializeField] private int _countCards;
+    [SerializeField] private CardComparer _cardComparator;
 
     private List<Card> _cards;
 
     public int QuantityCouples => _cards.Count / 2;
-    private int PenultimateCard => _cards.Count - 2;
-    private int LastCard => _cards.Count - 1;
 
     private void Awake()
     {
         _cards = new List<Card>();
 
-        AddCardList();
-        AddCardTheTable();
-        AddCoupleNumbers();
-        ClearTheTable();
+        AddCardsTheTable();
         _cards = Shuffle(_cards);
-        AddCardTheTable();
     }
 
     public void AddCoupleCards()
     {
-        ClearTheTable();
+        RemoveCardsTheTable();
+        _cards.Clear();
+        _countCards += 2;
 
-        _cards.Add(_card);
-        _cards.Add(_card);
-
-        AddCardTheTable();
-
-        _cards[PenultimateCard].NumberCard = QuantityCouples;
-        _cards[LastCard].NumberCard = QuantityCouples;
-
-        ClearTheTable();
+        AddCardsTheTable();
         _cards = Shuffle(_cards);
-        AddCardTheTable();
     }
 
-    private void AddCardList()
+    private void AddCardsTheTable()
     {
-        for (int i = 0; i < _startingCountCards; i++)
+        for (int i = 0; i < _countCards; i++)
         {
-            _cards.Add(_card);
+            CreateCards(_template, i);
         }
     }
 
-    private void AddCardTheTable()
+    private void CreateCards(Card card, int index)
     {
-        for (int i = 0; i < _cards.Count; i++)
-        {
-            Card newCard = Instantiate(_cards[i], transform.position, Quaternion.identity);
-            newCard.transform.SetParent(transform, false);
-            _cards[i] = newCard;
-            _cards[i].Init();
-        }
+        Card newCard = Instantiate(card, transform.position, Quaternion.identity);
+        newCard.transform.SetParent(transform, false);
+        _cards.Add(newCard);
+        _cards[index].Init(_cardComparator);
     }
 
-    private void ClearTheTable()
+    private void RemoveCardsTheTable()
     {
         for (int i = 0; i < _cards.Count; i++)
         {
@@ -70,10 +56,10 @@ public class CardsTable : MonoBehaviour
 
     private void AddCoupleNumbers()
     {
-        for (int i = 0; i < _cards.Count / 2; i++)
+        for (int i = 0; i < QuantityCouples; i++)
         {
-            _cards[i].NumberCard = i + 1;
-            _cards[_cards.Count / 2 + i].NumberCard = i + 1;
+            _cards[i].Number = i + 1;
+            _cards[QuantityCouples + i].Number = i + 1;
         }
     }
 
@@ -87,6 +73,7 @@ public class CardsTable : MonoBehaviour
             cards[j] = temp;
         }
 
+        AddCoupleNumbers();
         return cards;
     }
 }

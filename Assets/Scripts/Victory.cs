@@ -3,16 +3,11 @@ using UnityEngine.Events;
 
 public class Victory : MonoBehaviour
 {
-    private UnityAction _levelUp;
-    public event UnityAction LevelUp
-    {
-        add => _levelUp += value;
-        remove => _levelUp -= value;
-    }
+    public event UnityAction LevelUp;
 
     public void OnNextLevelButtonClick()
     {
-        _levelUp?.Invoke();
+        LevelUp?.Invoke();
         gameObject.SetActive(false);
     }
 }

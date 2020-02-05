@@ -3,7 +3,7 @@
 public class GameState : MonoBehaviour
 {
     [SerializeField] private int _startAttempts;
-    [SerializeField] private CardComparator _cardComparator;
+    [SerializeField] private CardComparer _cardComparator;
     [SerializeField] private CardsTable _cardsTable;
     [SerializeField] private Victory _vicloty;
     [SerializeField] private GameObject _gameOverPanel;

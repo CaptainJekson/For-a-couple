@@ -1071,7 +1071,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 1.25
+  m_padding: 0
   m_canvasRenderer: {fileID: 676774163}
   m_TextComponent: {fileID: 79270459}
   m_materialReferenceIndex: 1
@@ -1582,7 +1582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startAttempts: 18
-  _cardComparator: {fileID: 1119374633}
+  _cardComparator: {fileID: 1119374632}
   _cardsTable: {fileID: 1119374631}
   _vicloty: {fileID: 880582546}
   _gameOverPanel: {fileID: 724927616}
@@ -1699,7 +1699,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 13.5, y: -28.599976}
+  m_AnchoredPosition: {x: 13.5, y: -28.59961}
   m_SizeDelta: {x: -835.1, y: -394}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &880582546
@@ -1946,7 +1946,7 @@ GameObject:
   - component: {fileID: 1119374629}
   - component: {fileID: 1119374630}
   - component: {fileID: 1119374631}
-  - component: {fileID: 1119374633}
+  - component: {fileID: 1119374632}
   m_Layer: 5
   m_Name: Card table
   m_TagString: Untagged
@@ -2009,9 +2009,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4779658511773e34e9e53f9fecf032d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _card: {fileID: 4307496234707285770, guid: 36c36be4894d51843805f5f7dba52222, type: 3}
-  _startingCountCards: 16
---- !u!114 &1119374633
+  _template: {fileID: 4307496234707285770, guid: 36c36be4894d51843805f5f7dba52222,
+    type: 3}
+  _countCards: 16
+  _cardComparator: {fileID: 1119374632}
+--- !u!114 &1119374632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
