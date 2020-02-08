@@ -2,19 +2,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class Card : MonoBehaviour
 {
-    [SerializeField] private Sprite _shirtСard;
-    [SerializeField] private Sprite _faceCard;
     [SerializeField] private TextMeshProUGUI _numberCard;
-    [SerializeField] private float _timeShowing;
     [SerializeField] private ParticleSystem _cardEffect;
+    [SerializeField] private float _timeShow;
 
-    private Image _image;
     private Button _button;
-    private float _showingCooldown;
-    private CardComparer _cardComparator;
+    private CardComparer _cardComparer;
+    private Animator _animator;              
 
     public bool IsGuessed { get; set; }
     public int Number
@@ -23,34 +21,32 @@ public class Card : MonoBehaviour
         set => _numberCard.text = value.ToString();
     }
 
-    private void Awake()
+    private CardState  State
     {
-        _image = GetComponent<Image>();
-        _button = GetComponent<Button>();
-        _cardComparator = FindObjectOfType<CardComparer>();
-        _numberCard.enabled = false;
+        get => (CardState)_animator.GetInteger("State");
+        set => _animator.SetInteger("State", (int)value);
     }
 
-    private void Update()
+    private enum CardState 
     {
-        if (_showingCooldown > 0)
-        {
-            _showingCooldown -= Time.deltaTime;
-        }
-        else if (IsGuessed == false && _cardComparator.IsCoupleCard == true)
-        {
-            HideCard();
-        }
+        Idle, ShowCard, HideCard
+    }
+
+    private void Awake()
+    {
+        _button = GetComponent<Button>();
+        _animator = GetComponent<Animator>();
+        _cardComparer = FindObjectOfType<CardComparer>();
     }
 
     public void OnCardClick()
     {
         ShowCard();
 
-        _cardComparator.AddCardToCompare(this);
+        _cardComparer.AddCardToCompare(this);
 
-        if (_cardComparator.IsCoupleCard)
-            _cardComparator.ToCompare();
+        if (_cardComparer.IsCoupleCard)
+            _cardComparer.ToCompare();
     }
 
     public void RemoveCard()
@@ -65,19 +61,23 @@ public class Card : MonoBehaviour
 
     private void ShowCard()
     {
-        _image.sprite = _faceCard;
-        _numberCard.enabled = true;
         _button.enabled = false;
-        _showingCooldown = _timeShowing;
-
         _cardEffect.Play();
+        State = CardState .ShowCard;
     }
 
-    private void HideCard()
+    public void HideCard()
     {
-        _image.sprite = _shirtСard;
-        _numberCard.enabled = false;
         _button.enabled = true;
+        State = CardState .ShowCard;
+
+        StartCoroutine(DelayIdleAnimation());
+    }
+
+    private IEnumerator DelayIdleAnimation()
+    {
+        yield return new WaitForSeconds(_timeShow);
+        State = CardState .HideCard;
     }
 }
 

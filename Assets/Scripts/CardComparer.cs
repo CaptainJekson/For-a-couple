@@ -40,6 +40,8 @@ public class CardComparer : MonoBehaviour
         else
         {
             СardsNotMatched?.Invoke();
+            _pickedCards[_first].HideCard();
+            _pickedCards[_second].HideCard(); 
         }
     }
 }

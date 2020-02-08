@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6568379247115704198
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4927,6 +4927,7 @@ GameObject:
   - component: {fileID: 4307496234707285764}
   - component: {fileID: 4307496234707285767}
   - component: {fileID: 4307496234707285770}
+  - component: {fileID: 90377566}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -4941,7 +4942,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4307496234707285761}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4949,7 +4950,7 @@ RectTransform:
   - {fileID: 6568379247115704198}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -5057,8 +5058,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113d5d0e73bb08645b816b28dd963b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "_shirt\u0421ard": {fileID: 21300000, guid: 783685cc7fdb3314fa0f000cce7c4693, type: 3}
-  _faceCard: {fileID: 21300000, guid: 21aad6760aaa1894997a57181330c879, type: 3}
   _numberCard: {fileID: 4307496233336725864}
-  _timeShowing: 0.7
   _cardEffect: {fileID: 4065439990873964046}
+  _timeShow: 0.7
+--- !u!95 &90377566
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4307496234707285761}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 023b6892afe85e94d8d8e2bc97dc53d8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

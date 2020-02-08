@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class NubmerBar : MonoBehaviour
 {
@@ -10,15 +11,15 @@ public class NubmerBar : MonoBehaviour
 
     private void Awake()
     {
-        _levelText = GetComponent<TextMeshProUGUI>();
+        _levelText = GetComponent<TextMeshProUGUI>();      
     }
 
-    private void Update()
+    private void Start()
     {
-        OnShowText();       
+        OnShowText();
     }
 
-    private void OnShowText()
+    public void OnShowText()
     {
         _levelText.text = $"{_text} : {Number.ToString()}";
     }

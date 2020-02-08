@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class GameState : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class GameState : MonoBehaviour
     {
         Attempts = _startAttempts;
         Level = 1;
-        InitStartGAme();
+        InitStartGame();
     }
 
     private void OnEnable()
@@ -45,7 +46,7 @@ public class GameState : MonoBehaviour
         }
     }
 
-    private void InitStartGAme()
+    private void InitStartGame()
     {
         _levelBar.Number = Level;
         _attemptsBar.Number = Attempts;
@@ -55,6 +56,7 @@ public class GameState : MonoBehaviour
     private void OnAttemptToSpend()
     {
         _attemptsBar.Number = --Attempts;
+        _attemptsBar.OnShowText();
 
         if (Attempts <= 0)
             CompleteTheGame();
@@ -63,6 +65,7 @@ public class GameState : MonoBehaviour
     private void OnAddPoint()
     {
         _pointsBar.Number = ++Points;
+        _pointsBar.OnShowText();
     }
 
     private void OnLevelUp()
@@ -70,6 +73,7 @@ public class GameState : MonoBehaviour
         _cardComparator.QuantityGuessedCouples = 0;
         _cardsTable.AddCoupleCards();
         _levelBar.Number = ++Level;
+        _levelBar.OnShowText();
 
         if (Level >= 10)
         {
