@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class GameState : MonoBehaviour
 {
     [SerializeField] private int _startAttempts;
+    [SerializeField] private int _levelIncreaseAttempts;
     [SerializeField] private CardComparer _cardComparator;
     [SerializeField] private CardsTable _cardsTable;
     [SerializeField] private Victory _vicloty;
@@ -75,15 +76,16 @@ public class GameState : MonoBehaviour
         _levelBar.Number = ++Level;
         _levelBar.OnShowText();
 
-        if (Level >= 10)
+        if (Level >= _levelIncreaseAttempts)
         {
-            Attempts = _startAttempts++;
+            Attempts = ++_startAttempts;
         }
         else
         {
             Attempts = _startAttempts;
         }
         _attemptsBar.Number = Attempts;
+        _attemptsBar.OnShowText();
     }
 
     private void CompleteTheGame()

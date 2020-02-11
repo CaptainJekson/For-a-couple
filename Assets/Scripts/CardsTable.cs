@@ -6,7 +6,8 @@ public class CardsTable : MonoBehaviour
 {
     [SerializeField] private Card _template;
     [SerializeField] private int _countCards;
-    [SerializeField] private CardComparer _cardComparator;
+    
+    private CardComparer _cardComparer;
 
     private List<Card> _cards;
 
@@ -15,6 +16,7 @@ public class CardsTable : MonoBehaviour
     private void Awake()
     {
         _cards = new List<Card>();
+        _cardComparer = GetComponent<CardComparer>();
 
         AddCardsTheTable();
         _cards = Shuffle(_cards);
@@ -43,7 +45,7 @@ public class CardsTable : MonoBehaviour
         Card newCard = Instantiate(card, transform.position, Quaternion.identity);
         newCard.transform.SetParent(transform, false);
         _cards.Add(newCard);
-        _cards[index].Init(_cardComparator);
+        _cards[index].Init(_cardComparer);
     }
 
     private void RemoveCardsTheTable()

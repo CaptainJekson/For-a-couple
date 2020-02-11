@@ -32,16 +32,18 @@ public class CardComparer : MonoBehaviour
     {
         if (_pickedCards[_first].Number == _pickedCards[_second].Number)
         {
-            _pickedCards[_first].IsGuessed = true;
-            _pickedCards[_second].IsGuessed = true;
+            _pickedCards[_first].ActivateGuessing();
+            _pickedCards[_second].ActivateGuessing();
             QuantityGuessedCouples++;
+
             СardsMatched?.Invoke();
         }
         else
         {
-            СardsNotMatched?.Invoke();
             _pickedCards[_first].HideCard();
-            _pickedCards[_second].HideCard(); 
+            _pickedCards[_second].HideCard();
+
+            СardsNotMatched?.Invoke();
         }
     }
 }
