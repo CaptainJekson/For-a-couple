@@ -734,10 +734,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 40443e98-8181-4afc-a993-8a4b688a9764
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: For a couple init (1)
+  organizationId: creeger7772
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
