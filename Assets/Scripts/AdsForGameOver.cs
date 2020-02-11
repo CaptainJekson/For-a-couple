@@ -10,7 +10,7 @@ public class AdsForGameOver : MonoBehaviour, IUnityAdsListener
 
     private string gameId = "3466634";
     private string myPlacementId = "video";
-    private bool testMode = true;
+    private bool testMode = true;           //Не забыть поменять на false!!!!
 
     private void Start()
     {
@@ -20,34 +20,23 @@ public class AdsForGameOver : MonoBehaviour, IUnityAdsListener
         startWatchingButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             Advertisement.Show(myPlacementId);
-            startWatchingButton.SetActive(false);
         });
-    }
-
-    public void OnUnityAdsDidError(string message)
-    {
-        throw new System.NotImplementedException();
     }
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
     {
-        if(showResult == ShowResult.Finished)
+        if (showResult == ShowResult.Finished)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        else if(showResult == ShowResult.Skipped)
+        else if (showResult == ShowResult.Skipped)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        else if(showResult == ShowResult.Failed)
+        else if (showResult == ShowResult.Failed)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-    }
-
-    public void OnUnityAdsDidStart(string placementId)
-    {
-
     }
 
     public void OnUnityAdsReady(string placementId)
@@ -56,5 +45,15 @@ public class AdsForGameOver : MonoBehaviour, IUnityAdsListener
         {
             startWatchingButton.SetActive(true);
         }
+    }
+
+    public void OnUnityAdsDidStart(string placementId)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnUnityAdsDidError(string message)
+    {
+        throw new System.NotImplementedException();
     }
 }
